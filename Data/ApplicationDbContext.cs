@@ -9,4 +9,9 @@ public class ApplicationDbContext: DbContext
     { }
     
     public DbSet<UserModel> Users { get; set; }
+    public DbSet<ExerciseModel> Exercises { get; set; }
+    public DbSet<ExerciseSeriesModel> ExercisesSeries { get; set; }
+    public DbSet<RepetitionModel> Repetitions { get; set; }
+    public DbSet<TrainingModel> Trainings { get; set; }
+
 }
