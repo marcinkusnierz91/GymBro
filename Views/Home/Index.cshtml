@@ -1,8 +1,71 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    List<string> daysOfWeek = ViewBag.DaysOfWeek; // Pobierz listę dni tygodnia z ViewBag
+    string displayedMonth = ViewBag.DisplayedMonth; // Pobierz nazwę miesiąca z ViewBag
+    int previousMonthOffset = ViewBag.PreviousMonthOffset; // Pobierz offset dla poprzedniego miesiąca z ViewBag
+    int nextMonthOffset = ViewBag.NextMonthOffset; // Pobierz offset dla następnego miesiąca z ViewBag
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="display-1">Welcome</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-3 text-center">
+            <a asp-action="Index" asp-route-monthOffset="@previousMonthOffset" class="btn btn-primary">Poprzedni miesiąc</a>
+        </div>
+        <div class="col-md-3 text-center">
+            <span></span>
+            <h2>@displayedMonth</h2>
+        </div>
+        <div class="col-md-3 text-center">
+            @if (nextMonthOffset != 1 & previousMonthOffset != -1)
+            {
+                <a asp-action="Index" asp-route-monthOffset="@nextMonthOffset" class="btn btn-primary">Następny miesiąc</a>
+            }
+        </div>
+    </div>
 </div>
+
+<div class="grid-container">
+    @foreach (var item in ViewBag.DaysOfWeekAndMonthDay)
+    {
+        <div class="grid-item" onclick="redirectToTraining('@item.Key.Split(' ')[0]', '@item.Key.Split(' ')[1]')">
+            <span>@item.Key.Split(' ')[0]</span> <!-- Nazwa dnia tygodnia -->
+            <br />
+            <span>@item.Key.Split(' ')[1]</span> <!-- Numer dnia miesiąca -->
+        </div>
+    }
+</div>
+
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr); /* 7 kolumn dla dni tygodnia */
+        grid-gap: 10px;
+        margin-top: 20px;
+    }
+
+    .grid-item {
+        border: 1px solid #ccc;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .grid-item:hover {
+        background-color: lightblue;
+    }
+</style>
+
+<script>
+    function redirectToTraining(dayOfWeek, dayOfMonth) {
+        // Utwórz adres URL przekierowania z dodatkowymi parametrami
+        var url = '@Url.Action("Index", "Training")' + '?dayOfWeek=' + encodeURIComponent(dayOfWeek) + '&dayOfMonth=' + encodeURIComponent(dayOfMonth);
+        
+        // Przekieruj użytkownika do widoku Training z dodatkowymi parametrami
+        window.location.href = url;
+    }
+</script>
