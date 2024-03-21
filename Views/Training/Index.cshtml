@@ -13,7 +13,14 @@
 }
 
 <div>
-    <a asp-action="CreateTraining" asp-controller="Training" class="btn btn-primary">Utwórz trening</a>
+    @if (!DateTime.TryParse($"{ViewBag.SelectedDayOfMonth}/{DateTime.Now.Month}/{DateTime.Now.Year}", out DateTime selectedDate) || selectedDate.Date < DateTime.Now.Date)
+    {
+        <p>Nie możesz utworzyć treningu dla przeszłych dat.</p>
+    }
+    else
+    {
+        <a asp-action="CreateTraining" asp-controller="Training" class="btn btn-primary">Utwórz trening</a>
+    }
 </div>
 
 <table class="table">

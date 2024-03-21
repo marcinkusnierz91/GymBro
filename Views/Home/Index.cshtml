@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    List<string> daysOfWeek = ViewBag.DaysOfWeek; // Pobierz listę dni tygodnia z ViewBag
     string displayedMonth = ViewBag.DisplayedMonth; // Pobierz nazwę miesiąca z ViewBag
     int previousMonthOffset = ViewBag.PreviousMonthOffset; // Pobierz offset dla poprzedniego miesiąca z ViewBag
     int nextMonthOffset = ViewBag.NextMonthOffset; // Pobierz offset dla następnego miesiąca z ViewBag
@@ -32,16 +31,24 @@
 <div class="grid-container">
     @foreach (var item in ViewBag.DaysOfWeekAndMonthDay)
     {
-        <div class="grid-item" onclick="redirectToTraining('@item.Key.Split(' ')[0]', '@item.Key.Split(' ')[1]')">
-            <span>@item.Key.Split(' ')[0]</span> <!-- Nazwa dnia tygodnia -->
+        var dayOfWeek = item.Key.Split(' ')[0];
+        var dayOfMonth = item.Key.Split(' ')[1];
+        var trainingExists = ViewBag.TrainingDates != null && ViewBag.TrainingDates.Contains(new DateTime(DateTime.Now.Year, DateTime.Now.Month, item.Value));
+
+        <div class="grid-item @if(trainingExists) { <text>has-training</text> }" onclick="redirectToTraining('@dayOfWeek', '@dayOfMonth')">
+            <span>@dayOfWeek</span> <!-- Nazwa dnia tygodnia -->
             <br />
-            <span>@item.Key.Split(' ')[1]</span> <!-- Numer dnia miesiąca -->
+            <span>@dayOfMonth</span> <!-- Numer dnia miesiąca -->
         </div>
     }
 </div>
 
 
 <style>
+    .has-training {
+        background-color: lightgreen;
+    }
+
     .grid-container {
         display: grid;
         grid-template-columns: repeat(7, 1fr); /* 7 kolumn dla dni tygodnia */
