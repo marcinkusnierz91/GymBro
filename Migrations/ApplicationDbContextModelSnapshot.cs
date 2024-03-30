@@ -17,7 +17,7 @@ namespace GymBro.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -29,6 +29,9 @@ namespace GymBro.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ExerciseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ExerciseName")
                         .IsRequired()
@@ -55,12 +58,26 @@ namespace GymBro.Migrations
                     b.Property<int>("ExerciseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Repetitions")
+                        .HasColumnType("int");
+
                     b.Property<int>("SeriesAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeriesNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TrainingModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Weight")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExerciseId");
+
+                    b.HasIndex("TrainingModelId");
 
                     b.ToTable("ExercisesSeries");
                 });
@@ -145,7 +162,7 @@ namespace GymBro.Migrations
             modelBuilder.Entity("GymBro.Models.ExerciseModel", b =>
                 {
                     b.HasOne("GymBro.Models.TrainingModel", "Training")
-                        .WithMany()
+                        .WithMany("Exercises")
                         .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -156,10 +173,14 @@ namespace GymBro.Migrations
             modelBuilder.Entity("GymBro.Models.ExerciseSeriesModel", b =>
                 {
                     b.HasOne("GymBro.Models.ExerciseModel", "Exercise")
-                        .WithMany()
+                        .WithMany("ExerciseSeries")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("GymBro.Models.TrainingModel", null)
+                        .WithMany("ExerciseSeries")
+                        .HasForeignKey("TrainingModelId");
 
                     b.Navigation("Exercise");
                 });
@@ -178,12 +199,29 @@ namespace GymBro.Migrations
             modelBuilder.Entity("GymBro.Models.TrainingModel", b =>
                 {
                     b.HasOne("GymBro.Models.UserModel", "User")
-                        .WithMany()
+                        .WithMany("Trainings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GymBro.Models.ExerciseModel", b =>
+                {
+                    b.Navigation("ExerciseSeries");
+                });
+
+            modelBuilder.Entity("GymBro.Models.TrainingModel", b =>
+                {
+                    b.Navigation("ExerciseSeries");
+
+                    b.Navigation("Exercises");
+                });
+
+            modelBuilder.Entity("GymBro.Models.UserModel", b =>
+                {
+                    b.Navigation("Trainings");
                 });
 #pragma warning restore 612, 618
         }

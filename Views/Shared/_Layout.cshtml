@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/GymBro.styles.css" asp-append-version="true"/>
+    @RenderSection("Styles", required: false) <!-- Dodajemy sekcję dla dodatkowych styli -->
+
 </head>
 <body>
 <header>
@@ -21,6 +23,9 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Training" asp-action="Index">Training</a>
                     </li>
                 </ul>
             </div>

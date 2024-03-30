@@ -1,44 +1,136 @@
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model IEnumerable<GymBro.Models.TrainingModel>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="d-flex justify-content-between">
+    <h1>Training day</h1>
+    <form asp-controller="Training" asp-action="Delete" method="post">
+        <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
+        <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
+        <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
+        <input type="hidden" name="trainingIds" value="" />
+        @foreach (var item in Model)
+        {
+            <input type="hidden" name="trainingIds" value="@item.Id" />
+        }
+        <button type="submit" class="btn btn-danger">Delete Training</button>
+    </form>
 
-<h2>Index Training</h2>
+    
+</div>
 
-@if (ViewBag.SelectedDayOfWeek != null && ViewBag.SelectedDayOfMonth != null)
+<h2>@ViewBag.SelectedDayOfMonth<span>.</span>@ViewBag.DisplayedMonth<span>.</span>@ViewBag.DisplayedYear</h2>
+
+@if (!Model.Any())
 {
-    <p>Jesteś w treningu dotyczącym dnia: @ViewBag.SelectedDayOfWeek, @ViewBag.SelectedDayOfMonth</p>
+    <form asp-controller="Training" asp-action="CreateInstant" method="post">
+        <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
+        <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
+        <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </form>
+}
+else
+{
+    <form asp-controller="Training" asp-action="AddExercise" method="post">
+        <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
+        <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
+        <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
+        <div class="form-group">
+            <label for="exerciseName">Exercise Name:</label>
+            <input type="text" id="exerciseName" name="exerciseName" class="form-control" />
+        </div>
+        <!-- Przekazujemy tylko jeden konkretny identyfikator treningu -->
+        <input type="hidden" name="trainingId" value="@Model.First().Id" />
+        <button type="submit" class="btn btn-primary">Add Exercise</button>
+    </form>
 }
 
-<div>
-    @if (!DateTime.TryParse($"{ViewBag.SelectedDayOfMonth}/{DateTime.Now.Month}/{DateTime.Now.Year}", out DateTime selectedDate) || selectedDate.Date < DateTime.Now.Date)
+<div class="d-md-flex flex-wrap">
+    @if (Model.Any())
     {
-        <p>Nie możesz utworzyć treningu dla przeszłych dat.</p>
+        var exerciseIndex = 1;
+        var isLeftSide = true;
+
+        @foreach (var training in Model)
+        {
+            if (training.Exercises != null && training.Exercises.Any())
+            {
+                foreach (var exercise in training.Exercises)
+                {
+                    <div class="col-md-6 p-2">
+                        <div>
+                            <h3>@(exerciseIndex). @exercise.ExerciseName</h3>
+                            <form asp-controller="Training" asp-action="AddSeries" method="post">
+                                <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
+                                <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
+                                <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
+                                <input type="hidden" name="trainingId" value="@training.Id" />
+                                <input type="hidden" name="exerciseId" value="@exercise.Id" />
+                                <div class="d-flex flex-row justify-content-between">
+                                    <label for="repetitions">Repetitions:</label>
+                                    <input type="text" id="repetitions" name="repetitions" class="form-control mb-2" />
+                                
+                                    <label for="weight" class="mb-2">Weight:</label>
+                                    <input type="text" id="weight" name="weight" class="form-control mb-2 mr-2" />
+                                    
+                                    <button type="submit" class="btn btn-primary mb-2">Add Series</button>
+                                </div>
+                            </form>
+                            @if (exercise.ExerciseSeries != null && exercise.ExerciseSeries.Any())
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Series Number</th>
+                                            <th>Repetitions</th>
+                                            <th>Weight</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var seriesIndex = 1;
+                                            foreach (var series in exercise.ExerciseSeries)
+                                            {
+                                                <tr>
+                                                    <td>@seriesIndex</td>
+                                                    <td>@series.Repetitions</td>
+                                                    <td>@series.Weight</td>
+                                                </tr>
+                                                seriesIndex++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                    exerciseIndex++;
+                }
+            }
+            else
+            {
+                <p>No exercises for this training.</p>
+            }
+        }
     }
     else
     {
-        <a asp-action="CreateTraining" asp-controller="Training" class="btn btn-primary">Utwórz trening</a>
+        <p>No trainings for selected day.</p>
     }
 </div>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Użytkownik ID</th>
-        <th>Data treningu</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.UserId</td>
-            <td>@item.TrainingDate</td>
-        </tr>
-    }
-    </tbody>
-</table>
+@section Styles {
+    <style>
+        .even {
+            background: #565e64;
+        }
+        
+        .odd {
+            background: #adb5bd;
+        }
+    </style>
+}

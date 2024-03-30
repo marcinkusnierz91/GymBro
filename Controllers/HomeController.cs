@@ -11,12 +11,12 @@ namespace GymBro.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _context;
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
-            _db = db;
+            _context = db;
         }
 
         public IActionResult Index(int? monthOffset = 0)
@@ -27,14 +27,21 @@ namespace GymBro.Controllers
             // Pobierz listę dat treningów dla bieżącego lub wybranego miesiąca
             var trainingDates = GetTrainingDatesForMonthOffset(monthOffset ?? 0);
 
+            // Pobierz nazwę miesiąca i rok
+            string monthName = DateTime.Now.AddMonths(monthOffset ?? 0).ToString("MMMM", CultureInfo.GetCultureInfo("pl-PL"));
+            int monthNumber = DateTime.Now.AddMonths(monthOffset ?? 0).Month;
+            string year = DateTime.Now.AddMonths(monthOffset ?? 0).Year.ToString();
+
+            ViewBag.DisplayedMonth = char.ToUpper(monthName[0]) + monthName.Substring(1);
+            ViewBag.MonthNumber = monthNumber;
+            ViewBag.DisplayedYear = year;
+
             ViewBag.DaysOfWeekAndMonthDay = daysOfWeekAndMonthDay; // Przekazuj listę dni tygodnia i numerów dni miesiąca za pomocą ViewBag
             ViewBag.TrainingDates = trainingDates; // Przekazuj listę dat treningów za pomocą ViewBag
 
-            string monthName = DateTime.Now.AddMonths(monthOffset ?? 0).ToString("MMMM yyyy", CultureInfo.GetCultureInfo("pl-PL"));
-            ViewBag.DisplayedMonth = char.ToUpper(monthName[0]) + monthName.Substring(1);
             ViewBag.PreviousMonthOffset = monthOffset - 1; // Offset dla poprzedniego miesiąca
             ViewBag.NextMonthOffset = monthOffset + 1; // Offset dla następnego miesiąca
-
+        
             return View();
         }
 
@@ -61,14 +68,15 @@ namespace GymBro.Controllers
 
         private List<DateTime> GetTrainingDatesForMonthOffset(int offset)
         {
-            DateTime startDate = DateTime.Now.AddMonths(offset).AddDays(-DateTime.Now.Day + 1); // Pierwszy dzień bieżącego lub wybranego miesiąca
+            DateTime startDate = DateTime.Now.AddMonths(offset).AddDays(-DateTime.Now.Day + 1).Date;
             DateTime endDate = startDate.AddMonths(1).AddDays(-1); // Ostatni dzień bieżącego lub wybranego miesiąca
 
             // Pobierz listę dat treningów dla okresu od pierwszego do ostatniego dnia miesiąca
-            var trainingDates = _db.Trainings.Where(t => t.TrainingDate >= startDate && t.TrainingDate <= endDate)
-                                              .Select(t => t.TrainingDate.Date)
-                                              .Distinct()
-                                              .ToList();
+            var trainingDates = _context.Trainings
+                .Where(t => t.TrainingDate >= startDate && t.TrainingDate <= endDate)
+                .Select(t => t.TrainingDate.Date)
+                .Distinct()
+                .ToList();
 
             return trainingDates;
         }

@@ -33,16 +33,19 @@
     {
         var dayOfWeek = item.Key.Split(' ')[0];
         var dayOfMonth = item.Key.Split(' ')[1];
-        var trainingExists = ViewBag.TrainingDates != null && ViewBag.TrainingDates.Contains(new DateTime(DateTime.Now.Year, DateTime.Now.Month, item.Value));
-
-        <div class="grid-item @if(trainingExists) { <text>has-training</text> }" onclick="redirectToTraining('@dayOfWeek', '@dayOfMonth')">
+        var trainingExists = ViewBag.TrainingDates != null && ViewBag.TrainingDates.Contains(new DateTime(Convert.ToInt32(ViewBag.DisplayedYear), ViewBag.MonthNumber, item.Value).Date);
+        var monthName = ViewBag.DisplayedMonth;
+        var displayedYear = ViewBag.DisplayedYear;
+    
+        <a href="@Url.Action("Index", "Training", new {  dayOfMonth = dayOfMonth, month = ViewBag.MonthNumber, year = displayedYear })" 
+           class="grid-item @(trainingExists ? "has-training" : "")">
             <span>@dayOfWeek</span> <!-- Nazwa dnia tygodnia -->
             <br />
             <span>@dayOfMonth</span> <!-- Numer dnia miesiąca -->
-        </div>
+        </a>
     }
-</div>
 
+</div>
 
 <style>
     .has-training {
@@ -60,19 +63,11 @@
         border: 1px solid #ccc;
         padding: 20px;
         text-align: center;
+        text-decoration: none;
+        color: black;
     }
     
     .grid-item:hover {
         background-color: lightblue;
     }
 </style>
-
-<script>
-    function redirectToTraining(dayOfWeek, dayOfMonth) {
-        // Utwórz adres URL przekierowania z dodatkowymi parametrami
-        var url = '@Url.Action("Index", "Training")' + '?dayOfWeek=' + encodeURIComponent(dayOfWeek) + '&dayOfMonth=' + encodeURIComponent(dayOfMonth);
-        
-        // Przekieruj użytkownika do widoku Training z dodatkowymi parametrami
-        window.location.href = url;
-    }
-</script>
