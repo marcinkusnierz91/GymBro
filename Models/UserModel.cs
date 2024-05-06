@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation;
 
 namespace GymBro.Models;
 
@@ -19,4 +20,17 @@ public class UserModel
     public DateTime Date_created { get; set; } = DateTime.Now;
     public List<TrainingModel> Trainings { get; set; }
 
+}
+
+public class UserModelValdator : AbstractValidator<UserModel>
+{
+    public UserModelValdator()
+    {
+        RuleFor(x => x.Email)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage("Pusto tu, dej emaila")
+            .EmailAddress()
+            .WithMessage("Brak maila");
+    }
 }

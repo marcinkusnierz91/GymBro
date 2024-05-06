@@ -84,25 +84,36 @@ else
                             {
                                 <table class="table">
                                     <thead>
-                                        <tr>
-                                            <th>Series Number</th>
-                                            <th>Repetitions</th>
-                                            <th>Weight</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Series Number</th>
+                                        <th>Repetitions</th>
+                                        <th>Weight</th>
+                                        <th>Actions</th> <!-- Dodajemy nową kolumnę dla przycisków akcji -->
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        @{
-                                            var seriesIndex = 1;
-                                            foreach (var series in exercise.ExerciseSeries)
-                                            {
-                                                <tr>
-                                                    <td>@seriesIndex</td>
-                                                    <td>@series.Repetitions</td>
-                                                    <td>@series.Weight</td>
-                                                </tr>
-                                                seriesIndex++;
-                                            }
+                                    @{
+                                        var seriesIndex = 1;
+                                        foreach (var series in exercise.ExerciseSeries)
+                                        {
+                                            <tr data-series-id="@series.Id">
+                                                <td>@seriesIndex</td>
+                                                <td>
+                                                    <span class="display-data">@series.Repetitions</span>
+                                                    <input type="text" class="edit-data form-control" style="display: none;" value="@series.Repetitions" />
+                                                </td>
+                                                <td>
+                                                    <span class="display-data">@series.Weight</span>
+                                                    <input type="text" class="edit-data form-control" style="display: none;" value="@series.Weight" />
+                                                </td>
+                                                <td>
+                                                    <button class="edit-button btn btn-primary">Edytuj</button>
+                                                    <button class="save-button btn btn-success" style="display: none;">Zapisz</button>
+                                                </td>
+                                            </tr>
+                                            seriesIndex++;
                                         }
+                                    }
                                     </tbody>
                                 </table>
                             }
@@ -133,4 +144,57 @@ else
             background: #adb5bd;
         }
     </style>
+}
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".edit-button").click(function(){
+            var tr = $(this).closest('tr');
+            tr.find('.edit-button').hide();
+            tr.find('.save-button').show();
+            tr.find('.display-data').hide();
+            tr.find('.edit-data').show();
+        });
+
+        $(".save-button").click(function(){
+            var tr = $(this).closest('tr');
+            var seriesId = tr.data('series-id');
+            var repetitions = tr.find('.edit-data').eq(0).val();
+            var weight = tr.find('.edit-data').eq(1).val();
+        
+            // Pobranie parametrów z aktualnego URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var dayOfMonth = urlParams.get('dayOfMonth');
+            var month = urlParams.get('month');
+            var year = urlParams.get('year');
+        
+            // Wysyłanie żądania AJAX do serwera
+            $.ajax({
+                url: '/Training/UpdateSeries',
+                method: 'POST',
+                data: {
+                    dayOfMonth: dayOfMonth,
+                    month: month,
+                    year: year,
+                    seriesId: seriesId,
+                    repetitions: repetitions,
+                    weight: weight
+                },
+                success: function() {
+                    tr.find('.edit-button').show();
+                    tr.find('.save-button').hide();
+                    tr.find('.display-data').eq(0).text(repetitions);
+                    tr.find('.display-data').eq(1).text(weight);
+                    tr.find('.display-data').show();
+                    tr.find('.edit-data').hide();
+                },
+                error: function() {
+                    alert('An error occurred while updating the series.');
+                }
+            });
+        });
+    });
+    </script>
 }

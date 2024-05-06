@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "ib//1iktAI8VZqq7nf2209zKf5DSIO4rc/DAvn882Aax1q42TKzKVoEUl6m8bkXbt1qcclLbn63KtYUXo6gNUg==",
+  "dgSpecHash": "7P/uGIYNQFY8RjgljfiGchRruHn/Lf59FbQm5SCLZv6rLwJ6gKa3BzHTP0vcfRq47ismkfLL5W8G7VhNssE/WQ==",
   "success": true,
   "projectFilePath": "/Users/admin/RiderProjects/GymBro/GymBro/GymBro.csproj",
   "expectedPackageFiles": [
     "/Users/admin/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/admin/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
+    "/Users/admin/.nuget/packages/fluentvalidation/11.5.1/fluentvalidation.11.5.1.nupkg.sha512",
+    "/Users/admin/.nuget/packages/fluentvalidation.aspnetcore/11.3.0/fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "/Users/admin/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.5.1/fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "/Users/admin/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/admin/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/admin/.nuget/packages/humanizer.core.af/2.14.1/humanizer.core.af.2.14.1.nupkg.sha512",

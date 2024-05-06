@@ -107,11 +107,18 @@ namespace GymBro.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(trainingModel);
-                await _context.SaveChangesAsync();
-                // Ustawienie wartości w ViewBag przed przekierowaniem
-                ViewBag.SelectedDayOfMonth = dayOfMonth;
-                return RedirectToAction("Index", new { dayOfWeek = dayOfWeek, dayOfMonth = dayOfMonth });
+                TraingModelValidator validator = new();
+                var v = validator.Validate(trainingModel);
+                if (v.IsValid)
+                {
+                    _context.Add(trainingModel);
+                    await _context.SaveChangesAsync();
+                    // Ustawienie wartości w ViewBag przed przekierowaniem
+                    ViewBag.SelectedDayOfMonth = dayOfMonth;
+                    return RedirectToAction("Index", new { dayOfWeek = dayOfWeek, dayOfMonth = dayOfMonth });
+                    
+                }
+                    
             }
             
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", trainingModel.UserId);
@@ -354,12 +361,32 @@ namespace GymBro.Controllers
                 return RedirectToAction("Index", new { dayOfMonth = dayOfMonth, month = month, year = year });
  
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> UpdateSeries(int dayOfMonth, int month, int year, int seriesId, int repetitions, int weight)
+        {
+            // Znajdź odpowiednią serię na podstawie seriesId
+            var series = await _context.ExercisesSeries.FindAsync(seriesId);
+
+            if (series == null)
+            {
+                return NotFound();
+            }
+
+            // Aktualizuj dane serii
+            series.Repetitions = repetitions;
+            series.Weight = weight;
+
+            // Zapisz zmiany w bazie danych
+            await _context.SaveChangesAsync();
+
+            // Zwróć status 200 OK, aby poinformować, że operacja się powiodła
+            return Ok();
+        }
 
 
 
 
-
-
-
+        
     }
 }

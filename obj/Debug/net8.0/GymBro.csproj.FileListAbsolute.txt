@@ -276,3 +276,7 @@
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/win-arm64/native/e_sqlite3.dll
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/win-x64/native/e_sqlite3.dll
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/win-x86/native/e_sqlite3.dll
+/Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/GymBro.MvcApplicationPartsAssemblyInfo.cs
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/FluentValidation.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
