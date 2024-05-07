@@ -61,8 +61,8 @@ else
             {
                 foreach (var exercise in training.Exercises)
                 {
-                    <div class="col-md-6 p-2">
-                        <div>
+                    <div class="col-md-6 p-1">
+                        <div class="border border-secondary rounded p-1">
                             <h3>@(exerciseIndex). @exercise.ExerciseName</h3>
                             <form asp-controller="Training" asp-action="AddSeries" method="post">
                                 <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
@@ -70,14 +70,14 @@ else
                                 <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
                                 <input type="hidden" name="trainingId" value="@training.Id" />
                                 <input type="hidden" name="exerciseId" value="@exercise.Id" />
-                                <div class="d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row justify-content-between align-items-center">
                                     <label for="repetitions">Repetitions:</label>
-                                    <input type="text" id="repetitions" name="repetitions" class="form-control mb-2" />
+                                    <input type="text" id="repetitions" name="repetitions" class="form-control mb-2 w-25" />
                                 
                                     <label for="weight" class="mb-2">Weight:</label>
-                                    <input type="text" id="weight" name="weight" class="form-control mb-2 mr-2" />
+                                    <input type="text" id="weight" name="weight" class="form-control mb-2 mr-2 w-25" />
                                     
-                                    <button type="submit" class="btn btn-primary mb-2">Add Series</button>
+                                    <button type="submit" class="btn btn-primary mb-2 w-10">Add Series</button>
                                 </div>
                             </form>
                             @if (exercise.ExerciseSeries != null && exercise.ExerciseSeries.Any())
@@ -107,8 +107,8 @@ else
                                                     <input type="text" class="edit-data form-control" style="display: none;" value="@series.Weight" />
                                                 </td>
                                                 <td>
-                                                    <button class="edit-button btn btn-primary">Edytuj</button>
-                                                    <button class="save-button btn btn-success" style="display: none;">Zapisz</button>
+                                                    <button class="edit-button btn btn-primary">Edit</button>
+                                                    <button class="save-button btn btn-success" style="display: none;">Save</button>
                                                 </td>
                                             </tr>
                                             seriesIndex++;
@@ -143,6 +143,7 @@ else
         .odd {
             background: #adb5bd;
         }
+        
     </style>
 }
 
