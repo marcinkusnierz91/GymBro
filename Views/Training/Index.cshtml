@@ -97,7 +97,9 @@ else
                                         foreach (var series in exercise.ExerciseSeries)
                                         {
                                             <tr data-series-id="@series.Id">
-                                                <td>@seriesIndex</td>
+                                                <td>
+                                                    @seriesIndex
+                                                </td>
                                                 <td>
                                                     <span class="display-data">@series.Repetitions</span>
                                                     <input type="text" class="edit-data form-control" style="display: none;" value="@series.Repetitions" />
@@ -106,8 +108,9 @@ else
                                                     <span class="display-data">@series.Weight</span>
                                                     <input type="text" class="edit-data form-control" style="display: none;" value="@series.Weight" />
                                                 </td>
-                                                <td>
+                                                <td class="d-flex">
                                                     <button class="edit-button btn btn-primary">Edit</button>
+                                                    <button class="delete-button btn btn-danger">Delete</button>
                                                     <button class="save-button btn btn-success" style="display: none;">Save</button>
                                                 </td>
                                             </tr>
@@ -134,18 +137,16 @@ else
     }
 </div>
 
-@section Styles {
-    <style>
-        .even {
-            background: #565e64;
-        }
-        
-        .odd {
-            background: #adb5bd;
-        }
-        
-    </style>
-}
+<style>
+    
+    .table {
+        table-layout: fixed;  /* Dodajemy tę linię */
+    }
+    td {
+        word-wrap: break-word;  /* Dodajemy tę linię */
+    }
+    
+</style>
 
 @section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -154,6 +155,7 @@ else
         $(".edit-button").click(function(){
             var tr = $(this).closest('tr');
             tr.find('.edit-button').hide();
+            tr.find('.delete-button').hide();
             tr.find('.save-button').show();
             tr.find('.display-data').hide();
             tr.find('.edit-data').show();
@@ -185,6 +187,7 @@ else
                 },
                 success: function() {
                     tr.find('.edit-button').show();
+                    tr.find('.delete-button').show();
                     tr.find('.save-button').hide();
                     tr.find('.display-data').eq(0).text(repetitions);
                     tr.find('.display-data').eq(1).text(weight);
