@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/scopedcss/projectbundle/GymBro.bundle.scp.css",
-      "PackagePath": "staticwebassets/GymBro.bundle.scp.css"
+      "Id": "/Users/admin/.nuget/packages/chartjs.blazor.fork/2.0.2/contentFiles/any/netstandard2.1/wwwroot/ChartJsBlazorInterop.js",
+      "PackagePath": "staticwebassets/ChartJsBlazorInterop.js"
     },
     {
       "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/css/site.css",

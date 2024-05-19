@@ -44,9 +44,25 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Chart.js": {
+              "target": "Package",
+              "version": "[3.7.1, )"
+            },
+            "ChartJs.Blazor.Fork": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            },
             "FluentValidation.AspNetCore": {
               "target": "Package",
               "version": "[11.3.0, )"
+            },
+            "Microcharts": {
+              "target": "Package",
+              "version": "[0.9.5.9, )"
+            },
+            "Microcharts.Forms": {
+              "target": "Package",
+              "version": "[0.9.5.9, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

@@ -54,9 +54,7 @@
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.GymBro.props
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.GymBro.props
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/staticwebassets.pack.json
-/Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/scopedcss/bundle/GymBro.styles.css
-/Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/scopedcss/projectbundle/GymBro.bundle.scp.css
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/GymBro.csproj.Up2Date
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/GymBro.dll
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/refint/GymBro.dll
@@ -280,3 +278,16 @@
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/FluentValidation.dll
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Microcharts.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/SkiaSharp.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/osx/native/libSkiaSharp.dylib
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/win-arm64/native/libSkiaSharp.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/win-x64/native/libSkiaSharp.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/runtimes/win-x86/native/libSkiaSharp.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/ChartJs.Blazor.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Microcharts.Forms.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Xamarin.Forms.Core.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Xamarin.Forms.Platform.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Xamarin.Forms.Xaml.dll
+/Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/Views/Shared/_Layout.cshtml.css.g.cs
+/Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/XamlC.stamp

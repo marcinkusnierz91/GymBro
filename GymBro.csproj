@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Chart.js" Version="3.7.1" />
+      <PackageReference Include="ChartJs.Blazor.Fork" Version="2.0.2" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+      <PackageReference Include="Microcharts" Version="0.9.5.9" />
+      <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
         <PrivateAssets>all</PrivateAssets>
@@ -24,6 +28,16 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Trainingg\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingsList\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingsList\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingsList\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingsList\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingsList\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingList\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingList\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingList\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingList\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TrainingList\Index.cshtml" />
     </ItemGroup>
 
 </Project>
