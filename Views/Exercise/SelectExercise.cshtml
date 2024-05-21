@@ -1,0 +1,68 @@
+@model List<string>
+
+<h2>Ćwiczenia</h2>
+
+<div class="exercise-container">
+    @foreach (var exercise in Model)
+    {
+        var imageUrl = Url.Content($"~/images/{exercise.Replace(" ", "%20")}.jpg");
+        <div class="exercise-tile" style="background-image: url('@imageUrl');">
+            <span>@exercise</span>
+            <form asp-controller="Exercise" asp-action="AddExerciseToTraining" method="post" style="display:inline;">
+                <input type="hidden" name="exerciseName" value="@exercise" />
+                <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+                <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+                <input type="hidden" name="month" value="@ViewBag.Month" />
+                <input type="hidden" name="year" value="@ViewBag.Year" />
+                <button type="submit" class="btn btn-primary">Dodaj</button>
+            </form>
+        </div>
+    }
+</div>
+
+<form asp-controller="Exercise" asp-action="SelectMusclePart" method="get">
+    <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+    <button type="submit" class="btn btn-secondary mt-3">Powrót</button>
+</form>
+
+<style>
+.exercise-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.exercise-tile {
+    background-color: #f8f9fa; /* Kolor tła dla każdego kafelka */
+    background-size: cover; /* Dopasowanie obrazka do rozmiaru kafelka */
+    background-position: center; /* Wyśrodkowanie obrazka w kafelku */
+    width: calc(33.333% - 10px); /* Stała szerokość kafelka */
+    height: 200px; /* Stała wysokość kafelka */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Cień dla efektu wypukłości */
+    transition: transform 0.3s ease; /* Animacja przekształcenia */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.exercise-tile:hover {
+    transform: translateY(-5px); /* Podniesienie kafelka po najechaniu myszką */
+}
+
+.exercise-tile span {
+    font-weight: bold;
+    font-size: 18px;
+    display: block;
+    background: rgba(255, 255, 255, 0.7); /* Półprzezroczyste tło dla tekstu */
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center; /* Wyśrodkowanie tekstu */
+}
+
+.btn {
+    border-radius: 0; /* Usunięcie zaokrągleń przycisków */
+}
+</style>

@@ -35,18 +35,27 @@
 }
 else
 {
-    <form asp-controller="Training" asp-action="AddExercise" method="post">
-        <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
-        <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
-        <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
-        <div class="form-group">
-            <label for="exerciseName">Exercise Name:</label>
-            <input type="text" id="exerciseName" name="exerciseName" class="form-control" />
-        </div>
-        <!-- Przekazujemy tylko jeden konkretny identyfikator treningu -->
-        <input type="hidden" name="trainingId" value="@Model.First().Id" />
-        <button type="submit" class="btn btn-primary">Add Exercise</button>
-    </form>
+    @* <form asp-controller="Training" asp-action="AddExercise" method="post"> *@
+    @*     <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" /> *@
+    @*     <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" /> *@
+    @*     <input type="hidden" name="year" value="@ViewBag.DisplayedYear" /> *@
+    @*     <div class="form-group"> *@
+    @*         <label for="exerciseName">Exercise Name:</label> *@
+    @*         <input type="text" id="exerciseName" name="exerciseName" class="form-control" /> *@
+    @*     </div> *@
+    @*     <!-- Przekazujemy tylko jeden konkretny identyfikator treningu --> *@
+    @*     <input type="hidden" name="trainingId" value="@Model.First().Id" /> *@
+    @*     <button type="submit" class="btn btn-primary">Add Exercise</button> *@
+    @* </form> *@
+    
+    <a asp-controller="Exercise" asp-action="SelectMusclePart" 
+       asp-route-trainingId="@Model.First().Id" 
+       asp-route-dayOfMonth="@ViewBag.SelectedDayOfMonth" 
+       asp-route-month="@ViewBag.DisplayedMonth" 
+       asp-route-year="@ViewBag.DisplayedYear" 
+       class="btn btn-primary">Add Exercise</a>
+
+
 }
 
 <div class="d-md-flex flex-wrap">

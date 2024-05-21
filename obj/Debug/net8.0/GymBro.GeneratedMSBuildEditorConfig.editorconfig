@@ -26,26 +26,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/admin/RiderProjects/GymBro/GymBro
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Excercise/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhjZXJjaXNlL0NyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Excercise/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhjZXJjaXNlL0RlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Excercise/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhjZXJjaXNlL0RldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Excercise/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhjZXJjaXNlL0VkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Excercise/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhjZXJjaXNlL0luZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/admin/RiderProjects/GymBro/GymBro/Views/Exercise/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhlcmNpc2UvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,6 +44,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/admin/RiderProjects/GymBro/GymBro/Views/Exercise/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhlcmNpc2UvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/RiderProjects/GymBro/GymBro/Views/Exercise/SelectExercise.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhlcmNpc2UvU2VsZWN0RXhlcmNpc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/admin/RiderProjects/GymBro/GymBro/Views/Exercise/SelectMusclePart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhlcmNpc2UvU2VsZWN0TXVzY2xlUGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/admin/RiderProjects/GymBro/GymBro/Views/Home/Index.cshtml]

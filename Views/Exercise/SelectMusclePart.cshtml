@@ -1,0 +1,122 @@
+@{
+    ViewData["Title"] = "Select Muscle Part";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Select Muscle Part</h2>
+
+<div class="exercise-container">
+    <div class="exercise-tile" style="background-image: url('/images/klata.jpg');">
+        <form asp-controller="Exercise" asp-action="SelectExercise" method="post">
+            <input type="hidden" name="exerciseType" value="Chest"/>
+            <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.Month" />
+            <input type="hidden" name="year" value="@ViewBag.Year" />
+            <button type="submit" class="exercise-button">
+                <span class="exercise-label">Klata</span>
+            </button>
+        </form>
+    </div>
+    <div class="exercise-tile" style="background-image: url('/images/plecy.jpg');">
+        <form asp-controller="Exercise" asp-action="SelectExercise" method="post">
+            <input type="hidden" name="exerciseType" value="Back"/>
+            <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.Month" />
+            <input type="hidden" name="year" value="@ViewBag.Year" />
+            <button type="submit" class="exercise-button">
+                <span class="exercise-label">Plecy</span>
+            </button>
+        </form>
+    </div>
+    <div class="exercise-tile" style="background-image: url('/images/barki.jpg');">
+        <form asp-controller="Exercise" asp-action="SelectExercise" method="post">
+            <input type="hidden" name="exerciseType" value="Shoulders"/>
+            <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.Month" />
+            <input type="hidden" name="year" value="@ViewBag.Year" />
+            <button type="submit" class="exercise-button">
+                <span class="exercise-label">Barki</span>
+            </button>
+        </form>
+    </div>
+    <div class="exercise-tile" style="background-image: url('/images/biceps.jpg');">
+        <form asp-controller="Exercise" asp-action="SelectExercise" method="post">
+            <input type="hidden" name="exerciseType" value="Biceps"/>
+            <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.Month" />
+            <input type="hidden" name="year" value="@ViewBag.Year" />
+            <button type="submit" class="exercise-button">
+                <span class="exercise-label">Biceps</span>
+            </button>
+        </form>
+    </div>
+    <div class="exercise-tile" style="background-image: url('/images/triceps.jpg');">
+        <form asp-controller="Exercise" asp-action="SelectExercise" method="post">
+            <input type="hidden" name="exerciseType" value="Triceps"/>
+            <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.Month" />
+            <input type="hidden" name="year" value="@ViewBag.Year" />
+            <button type="submit" class="exercise-button">
+                <span class="exercise-label">Triceps</span>
+            </button>
+        </form>
+    </div>
+    <div class="exercise-tile" style="background-image: url('/images/nogi.jpg');">
+        <form asp-controller="Exercise" asp-action="SelectExercise" method="post">
+            <input type="hidden" name="exerciseType" value="Legs"/>
+            <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.Month" />
+            <input type="hidden" name="year" value="@ViewBag.Year" />
+            <button type="submit" class="exercise-button">
+                <span class="exercise-label">Nogi</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+.exercise-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.exercise-tile {
+    background-size: cover;
+    background-position: center;
+    width: calc(33.333% - 10px); /* Szerokość kafelka z uwzględnieniem marginesu */
+    height: 300px; /* Możesz dostosować wysokość */
+    margin: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.exercise-button {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.exercise-label {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+</style>

@@ -53,8 +53,6 @@ namespace GymBro.Controllers
         }
 
         // POST: Exercise/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string dayOfMonth, int month, string year, [Bind("Id,ExerciseName,TrainingId")] ExerciseModel exerciseModel)
@@ -68,7 +66,6 @@ namespace GymBro.Controllers
             ViewData["TrainingId"] = new SelectList(_context.Trainings, "Id", "Id", exerciseModel.TrainingId);
             return RedirectToAction("Index", new { dayOfMonth = dayOfMonth, month = month, year = year });
         }
-
 
         // GET: Exercise/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -88,8 +85,6 @@ namespace GymBro.Controllers
         }
 
         // POST: Exercise/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ExerciseName,TrainingId")] ExerciseModel exerciseModel)
@@ -160,6 +155,59 @@ namespace GymBro.Controllers
         private bool ExerciseModelExists(int id)
         {
             return _context.Exercises.Any(e => e.Id == id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExerciseToTraining(string exerciseName, int trainingId, int dayOfMonth, int month, int year)
+        {
+            if (string.IsNullOrEmpty(exerciseName) || trainingId <= 0)
+            {
+                return BadRequest("Invalid input data.");
+            }
+
+            var exercise = new ExerciseModel
+            {
+                ExerciseName = exerciseName,
+                ExerciseDate = DateTime.Now,
+                TrainingId = trainingId
+            };
+
+            _context.Add(exercise);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Training", new { dayOfMonth = dayOfMonth, month = month, year = year });
+        }
+
+        [HttpGet]
+        public IActionResult SelectMusclePart(int trainingId, int dayOfMonth, int month, int year)
+        {
+            ViewBag.TrainingId = trainingId;
+            ViewBag.DayOfMonth = dayOfMonth;
+            ViewBag.Month = month;
+            ViewBag.Year = year;
+            return View();
+        }
+
+        public IActionResult SelectExercise(string exerciseType, int trainingId, int dayOfMonth, int month, int year)
+        {
+            var exercises = new Dictionary<string, List<string>>
+            {
+                { "Chest", new List<string> { "Bench Press", "Incline Bench Press", "Chest Fly", "Push Ups" } },
+                { "Back", new List<string> { "Pull Ups", "Deadlift", "Bent Over Row" } },
+                { "Shoulders", new List<string> { "Shoulder Press", "Lateral Raise", "Front Raise" } },
+                { "Biceps", new List<string> { "Bicep Curl", "Hammer Curl", "Concentration Curl" } },
+                { "Triceps", new List<string> { "Tricep Extension", "Skull Crushers", "Tricep Dips" } },
+                { "Legs", new List<string> { "Squats", "Leg Press", "Lunges" } }
+            };
+
+            var selectedExercises = exercises.ContainsKey(exerciseType) ? exercises[exerciseType] : new List<string>();
+
+            ViewBag.TrainingId = trainingId;
+            ViewBag.DayOfMonth = dayOfMonth;
+            ViewBag.Month = month;
+            ViewBag.Year = year;
+
+            return View(selectedExercises);
         }
     }
 }

@@ -291,3 +291,5 @@
 /Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Xamarin.Forms.Xaml.dll
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/Views/Shared/_Layout.cshtml.css.g.cs
 /Users/admin/RiderProjects/GymBro/GymBro/obj/Debug/net8.0/XamlC.stamp
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/admin/RiderProjects/GymBro/GymBro/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.UI.dll

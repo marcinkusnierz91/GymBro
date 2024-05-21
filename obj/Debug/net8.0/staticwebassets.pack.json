@@ -13,6 +13,46 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/Bench Press.jpg",
+      "PackagePath": "staticwebassets/images/Bench Press.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/Chest Fly.jpg",
+      "PackagePath": "staticwebassets/images/Chest Fly.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/Incline Bench Press.jpg",
+      "PackagePath": "staticwebassets/images/Incline Bench Press.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/Push Ups.jpg",
+      "PackagePath": "staticwebassets/images/Push Ups.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/barki.jpg",
+      "PackagePath": "staticwebassets/images/barki.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/biceps.jpg",
+      "PackagePath": "staticwebassets/images/biceps.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/klata.jpg",
+      "PackagePath": "staticwebassets/images/klata.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/nogi.jpg",
+      "PackagePath": "staticwebassets/images/nogi.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/plecy.jpg",
+      "PackagePath": "staticwebassets/images/plecy.jpg"
+    },
+    {
+      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/triceps.jpg",
+      "PackagePath": "staticwebassets/images/triceps.jpg"
+    },
+    {
       "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },
