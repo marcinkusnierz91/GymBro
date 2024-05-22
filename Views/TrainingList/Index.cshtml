@@ -2,23 +2,45 @@
 
 @{
     ViewData["Title"] = "Training List";
+    var years = Model.Select(g => g.Key).Distinct().OrderBy(y => y);
+    var selectedYear = ViewBag.SelectedYear ?? DateTime.Now.Year;
 }
 
 <h1>@ViewData["Title"]</h1>
+
+<form asp-controller="TrainingList" asp-action="FilterByYear" method="get">
+    <label for="year">Wybierz rok:</label>
+    <select id="year" name="year">
+        @foreach (var year in ViewBag.AvailableYears)
+        {
+            if (year == ViewBag.SelectedYear)
+            {
+                <option value="@year" selected>@year</option>
+            }
+            else
+            {
+                <option value="@year">@year</option>
+            }
+        }
+    </select>
+    <input type="submit" value="Filtruj" />
+</form>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-@foreach (var yearGroup in Model)
+@if (ViewBag.SelectedYear != null)
 {
-    var year = yearGroup.Key;
-    var chartId = $"chart-{year}";
-    // Utworzenie listy miesięcy od 1 do 12.
+    var chartId = $"chart-{ViewBag.SelectedYear}";
     var months = Enumerable.Range(1, 12).ToList();
-    // Pobieranie liczby treningów dla każdego miesiąca.
-    var counts = months
-        .Select(month => yearGroup.Count(t => t.TrainingDate.Month == month))
-        .ToList();
+    var counts = months.Select(month =>
+    {
+        // Użyj SelectMany, aby spłaszczyć grupy do listy modeli TrainingModel
+        return Model.SelectMany(group => group)
+            .Count(t => t.TrainingDate.Month == month && t.TrainingDate.Year == ViewBag.SelectedYear);
+    }).ToList();
 
-    <h2>Rok: @year</h2>
+    <h2>Rok: @ViewBag.SelectedYear</h2>
     <canvas id="@chartId" width="400" height="200"></canvas>
     <script>
         var ctx = document.getElementById('@chartId').getContext('2d');
@@ -38,3 +60,5 @@
         });
     </script>
 }
+
+

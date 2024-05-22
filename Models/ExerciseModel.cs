@@ -12,6 +12,7 @@ public class ExerciseModel
 
     [Required]
     public string? ExerciseName { get; set; }
+    public string? MusclePart { get; set; }
     public DateTime ExerciseDate { get; set; }
     public int TrainingId { get; set; }
     public TrainingModel? Training { get; set; }

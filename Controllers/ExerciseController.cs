@@ -25,64 +25,7 @@ namespace GymBro.Controllers
             var applicationDbContext = _context.Exercises.Include(e => e.Training);
             return View(await applicationDbContext.ToListAsync());
         }
-
-        // GET: Exercise/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exerciseModel = await _context.Exercises
-                .Include(e => e.Training)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (exerciseModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(exerciseModel);
-        }
-
-        // GET: Exercise/Create
-        public IActionResult Create()
-        {
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "Id", "Id");
-            return View();
-        }
-
-        // POST: Exercise/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string dayOfMonth, int month, string year, [Bind("Id,ExerciseName,TrainingId")] ExerciseModel exerciseModel)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(exerciseModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Training", new { dayOfMonth = dayOfMonth, month = month, year = year });
-            }
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "Id", "Id", exerciseModel.TrainingId);
-            return RedirectToAction("Index", new { dayOfMonth = dayOfMonth, month = month, year = year });
-        }
-
-        // GET: Exercise/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exerciseModel = await _context.Exercises.FindAsync(id);
-            if (exerciseModel == null)
-            {
-                return NotFound();
-            }
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "Id", "Id", exerciseModel.TrainingId);
-            return View(exerciseModel);
-        }
+        
 
         // POST: Exercise/Edit/5
         [HttpPost]
@@ -158,18 +101,21 @@ namespace GymBro.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddExerciseToTraining(string exerciseName, int trainingId, int dayOfMonth, int month, int year)
+        public async Task<IActionResult> AddExerciseToTraining(string exerciseName, int trainingId, int dayOfMonth, int month, int year, string musclePart)
         {
             if (string.IsNullOrEmpty(exerciseName) || trainingId <= 0)
             {
                 return BadRequest("Invalid input data.");
             }
+            
+            var exerciseDate = new DateTime(year, month, dayOfMonth);
 
             var exercise = new ExerciseModel
             {
                 ExerciseName = exerciseName,
-                ExerciseDate = DateTime.Now,
-                TrainingId = trainingId
+                ExerciseDate = exerciseDate,
+                TrainingId = trainingId,
+                MusclePart = musclePart
             };
 
             _context.Add(exercise);
@@ -201,7 +147,8 @@ namespace GymBro.Controllers
             };
 
             var selectedExercises = exercises.ContainsKey(exerciseType) ? exercises[exerciseType] : new List<string>();
-
+            
+            ViewBag.MusclePart = exerciseType;
             ViewBag.TrainingId = trainingId;
             ViewBag.DayOfMonth = dayOfMonth;
             ViewBag.Month = month;
