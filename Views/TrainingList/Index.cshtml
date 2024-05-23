@@ -2,13 +2,14 @@
 
 @{
     ViewData["Title"] = "Training List";
-    var years = Model.Select(g => g.Key).Distinct().OrderBy(y => y);
     var selectedYear = ViewBag.SelectedYear ?? DateTime.Now.Year;
+    var selectedExercise = ViewBag.SelectedExercise ?? "";
+    var selectedMusclePart = ViewBag.SelectedMusclePart ?? "";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="TrainingList" asp-action="FilterByYear" method="get">
+<form asp-controller="TrainingList" asp-action="Filter" method="get">
     <label for="year">Wybierz rok:</label>
     <select id="year" name="year">
         @foreach (var year in ViewBag.AvailableYears)
@@ -23,10 +24,41 @@
             }
         }
     </select>
+
+    <label for="exercise">Wybierz ćwiczenie:</label>
+    <select id="exercise" name="exercise">
+        <option value="">Wszystkie</option>
+        @foreach (var exercise in ViewBag.AvailableExercises)
+        {
+            if (exercise == ViewBag.SelectedExercise)
+            {
+                <option value="@exercise" selected>@exercise</option>
+            }
+            else
+            {
+                <option value="@exercise">@exercise</option>
+            }
+        }
+    </select>
+
+    <label for="musclePart">Wybierz partię mięśni:</label>
+    <select id="musclePart" name="musclePart">
+        <option value="">Wszystkie</option>
+        @foreach (var musclePart in ViewBag.AvailableMuscleParts)
+        {
+            if (musclePart == ViewBag.SelectedMusclePart)
+            {
+                <option value="@musclePart" selected>@musclePart</option>
+            }
+            else
+            {
+                <option value="@musclePart">@musclePart</option>
+            }
+        }
+    </select>
+
     <input type="submit" value="Filtruj" />
 </form>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @if (ViewBag.SelectedYear != null)
@@ -35,9 +67,12 @@
     var months = Enumerable.Range(1, 12).ToList();
     var counts = months.Select(month =>
     {
-        // Użyj SelectMany, aby spłaszczyć grupy do listy modeli TrainingModel
         return Model.SelectMany(group => group)
-            .Count(t => t.TrainingDate.Month == month && t.TrainingDate.Year == ViewBag.SelectedYear);
+            .Count(t => t.TrainingDate.Month == month && t.TrainingDate.Year == ViewBag.SelectedYear && 
+                        (string.IsNullOrEmpty(ViewBag.SelectedExercise) || 
+                        t.Exercises.Any(e => e.ExerciseName == ViewBag.SelectedExercise)) &&
+                        (string.IsNullOrEmpty(ViewBag.SelectedMusclePart) ||
+                        t.Exercises.Any(e => e.MusclePart == ViewBag.SelectedMusclePart)));
     }).ToList();
 
     <h2>Rok: @ViewBag.SelectedYear</h2>
@@ -60,5 +95,3 @@
         });
     </script>
 }
-
-

@@ -384,9 +384,6 @@ namespace GymBro.Controllers
             return Ok();
         }
         
-        
-
-
 
     }
 }

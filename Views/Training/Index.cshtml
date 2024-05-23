@@ -5,21 +5,22 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="d-flex justify-content-between">
-    <h1>Training day</h1>
-    <form asp-controller="Training" asp-action="Delete" method="post">
-        <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
-        <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
-        <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
-        <input type="hidden" name="trainingIds" value="" />
-        @foreach (var item in Model)
-        {
-            <input type="hidden" name="trainingIds" value="@item.Id" />
-        }
-        <button type="submit" class="btn btn-danger">Delete Training</button>
-    </form>
 
-    
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Training Day</h1>
+    <div>
+        <a asp-controller="Home" asp-action="Index" asp-route-month="@ViewBag.DisplayedMonth" asp-route-year="@ViewBag.DisplayedYear" class="btn btn-secondary mr-2">Back to Home</a>
+        <form asp-controller="Training" asp-action="Delete" method="post" class="d-inline">
+            <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
+            <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
+            <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
+            @foreach (var item in Model)
+            {
+                <input type="hidden" name="trainingIds" value="@item.Id" />
+            }
+            <button type="submit" class="btn btn-danger">Delete Training</button>
+        </form>
+    </div>
 </div>
 
 <h2>@ViewBag.SelectedDayOfMonth<span>.</span>@ViewBag.DisplayedMonth<span>.</span>@ViewBag.DisplayedYear</h2>
@@ -35,27 +36,12 @@
 }
 else
 {
-    @* <form asp-controller="Training" asp-action="AddExercise" method="post"> *@
-    @*     <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" /> *@
-    @*     <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" /> *@
-    @*     <input type="hidden" name="year" value="@ViewBag.DisplayedYear" /> *@
-    @*     <div class="form-group"> *@
-    @*         <label for="exerciseName">Exercise Name:</label> *@
-    @*         <input type="text" id="exerciseName" name="exerciseName" class="form-control" /> *@
-    @*     </div> *@
-    @*     <!-- Przekazujemy tylko jeden konkretny identyfikator treningu --> *@
-    @*     <input type="hidden" name="trainingId" value="@Model.First().Id" /> *@
-    @*     <button type="submit" class="btn btn-primary">Add Exercise</button> *@
-    @* </form> *@
-    
     <a asp-controller="Exercise" asp-action="SelectMusclePart" 
        asp-route-trainingId="@Model.First().Id" 
        asp-route-dayOfMonth="@ViewBag.SelectedDayOfMonth" 
        asp-route-month="@ViewBag.DisplayedMonth" 
        asp-route-year="@ViewBag.DisplayedYear" 
        class="btn btn-primary">Add Exercise</a>
-
-
 }
 
 <div class="d-md-flex flex-wrap">
@@ -72,7 +58,16 @@ else
                 {
                     <div class="col-md-6 p-1">
                         <div class="border border-secondary rounded p-1">
-                            <h3>@(exerciseIndex). @exercise.ExerciseName</h3>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>@(exerciseIndex). @exercise.ExerciseName</h3>
+                                <form asp-controller="Exercise" asp-action="DeleteExercise" method="post" class="ml-auto">
+                                    <input type="hidden" name="exerciseId" value="@exercise.Id" />
+                                    <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
+                                    <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
+                                    <input type="hidden" name="year" value="@ViewBag.DisplayedYear" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
                             <form asp-controller="Training" asp-action="AddSeries" method="post">
                                 <input type="hidden" name="dayOfMonth" value="@ViewBag.SelectedDayOfMonth" />
                                 <input type="hidden" name="month" value="@ViewBag.DisplayedMonth" />
@@ -147,14 +142,12 @@ else
 </div>
 
 <style>
-    
     .table {
-        table-layout: fixed;  /* Dodajemy tę linię */
+        table-layout: fixed;
     }
     td {
-        word-wrap: break-word;  /* Dodajemy tę linię */
+        word-wrap: break-word;
     }
-    
 </style>
 
 @section Scripts {

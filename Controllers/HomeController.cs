@@ -19,66 +19,72 @@ namespace GymBro.Controllers
             _context = db;
         }
 
-        public IActionResult Index(int? monthOffset = 0)
-        {
-            // Pobierz dni tygodnia oraz numery dni miesiąca dla bieżącego lub wybranego miesiąca
-            Dictionary<string, int> daysOfWeekAndMonthDay = GetDaysOfWeekAndMonthDayForMonthOffset(monthOffset ?? 0);
+        public IActionResult Index(int? month = null, int? year = null)
+{
+    DateTime currentDate;
+    if (month.HasValue && year.HasValue)
+    {
+        currentDate = new DateTime(year.Value, month.Value, 1);
+    }
+    else
+    {
+        currentDate = DateTime.Now;
+    }
 
-            // Pobierz listę dat treningów dla bieżącego lub wybranego miesiąca
-            var trainingDates = GetTrainingDatesForMonthOffset(monthOffset ?? 0);
+    Dictionary<string, int> daysOfWeekAndMonthDay = GetDaysOfWeekAndMonthDay(currentDate);
+    var trainingDates = GetTrainingDates(currentDate);
 
-            // Pobierz nazwę miesiąca i rok
-            string monthName = DateTime.Now.AddMonths(monthOffset ?? 0).ToString("MMMM", CultureInfo.GetCultureInfo("pl-PL"));
-            int monthNumber = DateTime.Now.AddMonths(monthOffset ?? 0).Month;
-            string year = DateTime.Now.AddMonths(monthOffset ?? 0).Year.ToString();
+    string monthName = currentDate.ToString("MMMM", CultureInfo.GetCultureInfo("pl-PL"));
+    int monthNumber = currentDate.Month;
+    string displayedYear = currentDate.Year.ToString();
 
-            ViewBag.DisplayedMonth = char.ToUpper(monthName[0]) + monthName.Substring(1);
-            ViewBag.MonthNumber = monthNumber;
-            ViewBag.DisplayedYear = year;
+    ViewBag.DisplayedMonth = char.ToUpper(monthName[0]) + monthName.Substring(1);
+    ViewBag.MonthNumber = monthNumber;
+    ViewBag.DisplayedYear = displayedYear;
 
-            ViewBag.DaysOfWeekAndMonthDay = daysOfWeekAndMonthDay; // Przekazuj listę dni tygodnia i numerów dni miesiąca za pomocą ViewBag
-            ViewBag.TrainingDates = trainingDates; // Przekazuj listę dat treningów za pomocą ViewBag
+    ViewBag.DaysOfWeekAndMonthDay = daysOfWeekAndMonthDay;
+    ViewBag.TrainingDates = trainingDates;
 
-            ViewBag.PreviousMonthOffset = monthOffset - 1; // Offset dla poprzedniego miesiąca
-            ViewBag.NextMonthOffset = monthOffset + 1; // Offset dla następnego miesiąca
-        
-            return View();
-        }
+    DateTime previousMonthDate = currentDate.AddMonths(-1);
+    ViewBag.PreviousMonth = previousMonthDate.Month;
+    ViewBag.PreviousYear = previousMonthDate.Year;
 
-        private Dictionary<string, int> GetDaysOfWeekAndMonthDayForMonthOffset(int offset)
-        {
-            Dictionary<string, int> daysOfWeekAndMonthDay = new Dictionary<string, int>();
-            DateTime currentDate = DateTime.Now.AddMonths(offset);
-            int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-            
-            // Pętla przez dni w miesiącu z uwzględnieniem przesunięcia
-            for (int i = 1; i <= daysInMonth; i++)
-            {
-                DateTime currentDay = new DateTime(currentDate.Year, currentDate.Month, i);
-                string dayOfWeek = currentDay.ToString("dddd", CultureInfo.GetCultureInfo("pl-PL")); // Nazwa dnia tygodnia
-                dayOfWeek = char.ToUpper(dayOfWeek[0]) + dayOfWeek.Substring(1);
-                
-                int monthDay = i; // Numer dnia miesiąca
-                string key = $"{dayOfWeek} {monthDay}"; // Klucz łączący nazwę dnia tygodnia i numer dnia miesiąca
-                daysOfWeekAndMonthDay.Add(key, monthDay); // Dodaj parę nazwa dnia tygodnia - numer dnia miesiąca do słownika
-            }
+    DateTime nextMonthDate = currentDate.AddMonths(1);
+    ViewBag.NextMonth = nextMonthDate.Month;
+    ViewBag.NextYear = nextMonthDate.Year;
 
-            return daysOfWeekAndMonthDay;
-        }
+    return View();
+}
 
-        private List<DateTime> GetTrainingDatesForMonthOffset(int offset)
-        {
-            DateTime startDate = DateTime.Now.AddMonths(offset).AddDays(-DateTime.Now.Day + 1).Date;
-            DateTime endDate = startDate.AddMonths(1).AddDays(-1); // Ostatni dzień bieżącego lub wybranego miesiąca
+private Dictionary<string, int> GetDaysOfWeekAndMonthDay(DateTime date)
+{
+    Dictionary<string, int> daysOfWeekAndMonthDay = new Dictionary<string, int>();
+    int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
 
-            // Pobierz listę dat treningów dla okresu od pierwszego do ostatniego dnia miesiąca
-            var trainingDates = _context.Trainings
-                .Where(t => t.TrainingDate >= startDate && t.TrainingDate <= endDate)
-                .Select(t => t.TrainingDate.Date)
-                .Distinct()
-                .ToList();
+    for (int i = 1; i <= daysInMonth; i++)
+    {
+        DateTime currentDay = new DateTime(date.Year, date.Month, i);
+        string dayOfWeek = currentDay.ToString("dddd", CultureInfo.GetCultureInfo("pl-PL"));
+        dayOfWeek = char.ToUpper(dayOfWeek[0]) + dayOfWeek.Substring(1);
+        daysOfWeekAndMonthDay.Add($"{dayOfWeek} {i}", i);
+    }
 
-            return trainingDates;
-        }
+    return daysOfWeekAndMonthDay;
+}
+
+private List<DateTime> GetTrainingDates(DateTime date)
+{
+    DateTime startDate = new DateTime(date.Year, date.Month, 1);
+    DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+    var trainingDates = _context.Trainings
+        .Where(t => t.TrainingDate >= startDate && t.TrainingDate <= endDate)
+        .Select(t => t.TrainingDate.Date)
+        .Distinct()
+        .ToList();
+
+    return trainingDates;
+}
+
     }
 }

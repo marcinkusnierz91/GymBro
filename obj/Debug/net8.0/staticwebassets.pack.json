@@ -37,10 +37,6 @@
       "PackagePath": "staticwebassets/images/biceps.jpg"
     },
     {
-      "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/klata.jpg",
-      "PackagePath": "staticwebassets/images/klata.jpg"
-    },
-    {
       "Id": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/nogi.jpg",
       "PackagePath": "staticwebassets/images/nogi.jpg"
     },

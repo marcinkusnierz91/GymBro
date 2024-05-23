@@ -1,8 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    string displayedMonth = ViewBag.DisplayedMonth; // Pobierz nazwę miesiąca z ViewBag
-    int previousMonthOffset = ViewBag.PreviousMonthOffset; // Pobierz offset dla poprzedniego miesiąca z ViewBag
-    int nextMonthOffset = ViewBag.NextMonthOffset; // Pobierz offset dla następnego miesiąca z ViewBag
+    string displayedMonth = ViewBag.DisplayedMonth;
+    int previousMonth = ViewBag.PreviousMonth;
+    int previousYear = ViewBag.PreviousYear;
+    int nextMonth = ViewBag.NextMonth;
+    int nextYear = ViewBag.NextYear;
 }
 
 <div class="container">
@@ -13,20 +15,24 @@
     </div>
     <div class="row justify-content-center align-items-center">
         <div class="col-md-3 text-center">
-            <a asp-action="Index" asp-route-monthOffset="@previousMonthOffset" class="btn btn-primary">Poprzedni miesiąc</a>
+            @if (previousMonth > 0 && previousYear >= 2000)
+            {
+                <a asp-action="Index" asp-route-month="@previousMonth" asp-route-year="@previousYear" class="btn btn-primary">Poprzedni miesiąc</a>
+            }
         </div>
         <div class="col-md-3 text-center">
             <span></span>
             <h2>@displayedMonth</h2>
         </div>
         <div class="col-md-3 text-center">
-            @if (nextMonthOffset != 1 & previousMonthOffset != -1)
+            @if (nextMonth <= DateTime.Now.Month && nextYear <= DateTime.Now.Year && nextYear >= DateTime.Now.Year)
             {
-                <a asp-action="Index" asp-route-monthOffset="@nextMonthOffset" class="btn btn-primary">Następny miesiąc</a>
+                <a asp-action="Index" asp-route-month="@nextMonth" asp-route-year="@nextYear" class="btn btn-primary">Następny miesiąc</a>
             }
         </div>
     </div>
 </div>
+
 
 <div class="grid-container">
     @foreach (var item in ViewBag.DaysOfWeekAndMonthDay)
@@ -34,18 +40,16 @@
         var dayOfWeek = item.Key.Split(' ')[0];
         var dayOfMonth = item.Key.Split(' ')[1];
         var trainingExists = ViewBag.TrainingDates != null && ViewBag.TrainingDates.Contains(new DateTime(Convert.ToInt32(ViewBag.DisplayedYear), ViewBag.MonthNumber, item.Value).Date);
-        var monthName = ViewBag.DisplayedMonth;
-        var displayedYear = ViewBag.DisplayedYear;
-    
-        <a href="@Url.Action("Index", "Training", new {  dayOfMonth = dayOfMonth, month = ViewBag.MonthNumber, year = displayedYear })" 
+
+        <a href="@Url.Action("Index", "Training", new { dayOfMonth = dayOfMonth, month = ViewBag.MonthNumber, year = ViewBag.DisplayedYear })" 
            class="grid-item @(trainingExists ? "has-training" : "")">
-            <span>@dayOfWeek</span> <!-- Nazwa dnia tygodnia -->
+            <span>@dayOfWeek</span>
             <br />
-            <span>@dayOfMonth</span> <!-- Numer dnia miesiąca -->
+            <span>@dayOfMonth</span>
         </a>
     }
-
 </div>
+
 
 <style>
     .has-training {

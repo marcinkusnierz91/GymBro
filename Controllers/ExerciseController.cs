@@ -156,5 +156,25 @@ namespace GymBro.Controllers
 
             return View(selectedExercises);
         }
+        
+        // POST: Exercise/DeleteExercise
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteExercise(int exerciseId, string dayOfMonth, int month, string year)
+        {
+            var exercise = await _context.Exercises.FindAsync(exerciseId);
+            if (exercise == null)
+            {
+                return NotFound();
+            }
+
+            _context.Exercises.Remove(exercise);
+            await _context.SaveChangesAsync();
+
+            // Przekierowanie z powrotem do bieżącej strony
+            return RedirectToAction("Index", "Training", new { dayOfMonth = dayOfMonth, month = month, year = year });
+        }
+
+
     }
 }

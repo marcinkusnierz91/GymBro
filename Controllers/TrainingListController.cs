@@ -22,6 +22,7 @@ namespace GymBro.Controllers
         public async Task<IActionResult> Index()
         {
             var trainings = await _context.Trainings
+                .Include(t => t.Exercises) // Łączymy ćwiczenia
                 .OrderBy(t => t.TrainingDate)
                 .ToListAsync();
 
@@ -29,41 +30,78 @@ namespace GymBro.Controllers
                 .GroupBy(t => t.TrainingDate.Year)
                 .ToList();
 
-            // Pobierz listę lat, w których odbywały się treningi.
             ViewBag.AvailableYears = await _context.Trainings
                 .Select(t => t.TrainingDate.Year)
                 .Distinct()
                 .OrderBy(y => y)
+                .ToListAsync();
+
+            ViewBag.AvailableExercises = await _context.Exercises
+                .Select(e => e.ExerciseName)
+                .Distinct()
+                .OrderBy(e => e)
+                .ToListAsync();
+
+            ViewBag.AvailableMuscleParts = await _context.Exercises
+                .Select(e => e.MusclePart)
+                .Distinct()
+                .OrderBy(e => e)
                 .ToListAsync();
 
             return View(groupedByYear);
         }
 
-        // GET: TrainingList/FilterByYear
-        public async Task<IActionResult> FilterByYear(int year)
+        // GET: TrainingList/Filter
+        public async Task<IActionResult> Filter(int year, string exercise, string musclePart)
         {
-            var trainingsForYear = await _context.Trainings
-                .Where(t => t.TrainingDate.Year == year)
-                .ToListAsync();
+            var trainingsQuery = _context.Trainings
+                .Include(t => t.Exercises)
+                .AsQueryable();
 
-            var groupedByMonth = trainingsForYear
+            if (year > 0)
+            {
+                trainingsQuery = trainingsQuery.Where(t => t.TrainingDate.Year == year);
+            }
+
+            if (!string.IsNullOrEmpty(exercise))
+            {
+                trainingsQuery = trainingsQuery.Where(t => t.Exercises.Any(e => e.ExerciseName == exercise));
+            }
+
+            if (!string.IsNullOrEmpty(musclePart))
+            {
+                trainingsQuery = trainingsQuery.Where(t => t.Exercises.Any(e => e.MusclePart == musclePart));
+            }
+
+            var trainings = await trainingsQuery.ToListAsync();
+
+            var groupedByMonth = trainings
                 .GroupBy(t => t.TrainingDate.Month)
                 .ToList();
 
             ViewBag.SelectedYear = year;
-            // Upewnij się, że lista lat jest dostępna również po filtrowaniu.
+            ViewBag.SelectedExercise = exercise;
+            ViewBag.SelectedMusclePart = musclePart;
+
             ViewBag.AvailableYears = await _context.Trainings
                 .Select(t => t.TrainingDate.Year)
                 .Distinct()
                 .OrderBy(y => y)
                 .ToListAsync();
 
-            return View("Index", groupedByMonth);
-        }
+            ViewBag.AvailableExercises = await _context.Exercises
+                .Select(e => e.ExerciseName)
+                .Distinct()
+                .OrderBy(e => e)
+                .ToListAsync();
 
-        private bool TrainingModelExists(int id)
-        {
-            return _context.Trainings.Any(e => e.Id == id);
+            ViewBag.AvailableMuscleParts = await _context.Exercises
+                .Select(e => e.MusclePart)
+                .Distinct()
+                .OrderBy(e => e)
+                .ToListAsync();
+
+            return View("Index", groupedByMonth);
         }
     }
 }
