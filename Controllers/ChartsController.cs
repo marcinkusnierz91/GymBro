@@ -9,20 +9,20 @@ using GymBro.Models;
 
 namespace GymBro.Controllers
 {
-    public class TrainingListController : Controller
+    public class ChartsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TrainingListController(ApplicationDbContext context)
+        public ChartsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: TrainingList
+        // GET: Charts
         public async Task<IActionResult> Index()
         {
             var trainings = await _context.Trainings
-                .Include(t => t.Exercises) // Łączymy ćwiczenia
+                .Include(t => t.Exercises)
                 .OrderBy(t => t.TrainingDate)
                 .ToListAsync();
 
@@ -51,7 +51,7 @@ namespace GymBro.Controllers
             return View(groupedByYear);
         }
 
-        // GET: TrainingList/Filter
+        // GET: Charts/Filter
         public async Task<IActionResult> Filter(int year, string exercise, string musclePart)
         {
             var trainingsQuery = _context.Trainings

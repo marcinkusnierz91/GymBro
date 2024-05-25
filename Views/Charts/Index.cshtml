@@ -1,7 +1,7 @@
 @model IEnumerable<IGrouping<int, GymBro.Models.TrainingModel>>
 
 @{
-    ViewData["Title"] = "Training List";
+    ViewData["Title"] = "Charts";
     var selectedYear = ViewBag.SelectedYear ?? DateTime.Now.Year;
     var selectedExercise = ViewBag.SelectedExercise ?? "";
     var selectedMusclePart = ViewBag.SelectedMusclePart ?? "";
@@ -9,8 +9,8 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="TrainingList" asp-action="Filter" method="get">
-    <label for="year">Wybierz rok:</label>
+<form asp-controller="Charts" asp-action="Filter" method="get">
+    <label for="year">Select year:</label>
     <select id="year" name="year">
         @foreach (var year in ViewBag.AvailableYears)
         {
@@ -25,9 +25,9 @@
         }
     </select>
 
-    <label for="exercise">Wybierz ćwiczenie:</label>
+    <label for="exercise">Select exercise:</label>
     <select id="exercise" name="exercise">
-        <option value="">Wszystkie</option>
+        <option value="">All</option>
         @foreach (var exercise in ViewBag.AvailableExercises)
         {
             if (exercise == ViewBag.SelectedExercise)
@@ -41,9 +41,9 @@
         }
     </select>
 
-    <label for="musclePart">Wybierz partię mięśni:</label>
+    <label for="musclePart">Select muscle part:</label>
     <select id="musclePart" name="musclePart">
-        <option value="">Wszystkie</option>
+        <option value="">All</option>
         @foreach (var musclePart in ViewBag.AvailableMuscleParts)
         {
             if (musclePart == ViewBag.SelectedMusclePart)
@@ -57,7 +57,7 @@
         }
     </select>
 
-    <input type="submit" value="Filtruj" />
+    <input type="submit" value="Filter" />
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -75,7 +75,7 @@
                         t.Exercises.Any(e => e.MusclePart == ViewBag.SelectedMusclePart)));
     }).ToList();
 
-    <h2>Rok: @ViewBag.SelectedYear</h2>
+    <h2>Year: @ViewBag.SelectedYear</h2>
     <canvas id="@chartId" width="400" height="200"></canvas>
     <script>
         var ctx = document.getElementById('@chartId').getContext('2d');
@@ -84,7 +84,7 @@
             data: {
                 labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(months)),
                 datasets: [{
-                    label: 'Ilość treningów',
+                    label: 'Number of trainings',
                     data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(counts)),
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',

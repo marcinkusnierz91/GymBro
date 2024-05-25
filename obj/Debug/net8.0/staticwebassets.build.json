@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aXcJI2N+uhq+kSwNEAvOZQLtV8fA0WG9NTuWxUpoF2I=",
+  "Hash": "ymJk3Lz2OSg8JHu1wBq2R6ZyvwGdP8l+L+VkBQighnM=",
   "Source": "GymBro",
   "BasePath": "_content/GymBro",
   "Mode": "Default",
@@ -1326,6 +1326,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/Incline Bench Press.jpg"
+    },
+    {
+      "Identity": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/klata.jpg",
+      "SourceId": "GymBro",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/",
+      "BasePath": "_content/GymBro",
+      "RelativePath": "images/klata.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/klata.jpg"
     },
     {
       "Identity": "/Users/admin/RiderProjects/GymBro/GymBro/wwwroot/images/nogi.jpg",

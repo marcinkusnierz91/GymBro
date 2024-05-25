@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/admin/RiderProjects/GymBro/GymBro
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/admin/RiderProjects/GymBro/GymBro/Views/Charts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2hhcnRzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/admin/RiderProjects/GymBro/GymBro/Views/Exercise/SelectExercise.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhlcmNpc2UvU2VsZWN0RXhlcmNpc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -54,44 +58,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Training/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmcvQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Training/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmcvRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Training/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmcvRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/Training/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmcvRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/admin/RiderProjects/GymBro/GymBro/Views/Training/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmcvSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/TrainingList/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmdMaXN0L0NyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/TrainingList/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmdMaXN0L0RlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/TrainingList/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmdMaXN0L0RldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/TrainingList/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmdMaXN0L0VkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/admin/RiderProjects/GymBro/GymBro/Views/TrainingList/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhaW5pbmdMaXN0L0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/admin/RiderProjects/GymBro/GymBro/Views/User/Create.cshtml]

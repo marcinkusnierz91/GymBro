@@ -17,7 +17,7 @@
         <div class="col-md-3 text-center">
             @if (previousMonth > 0 && previousYear >= 2000)
             {
-                <a asp-action="Index" asp-route-month="@previousMonth" asp-route-year="@previousYear" class="btn btn-primary">Poprzedni miesiąc</a>
+                <a asp-action="Index" asp-route-month="@previousMonth" asp-route-year="@previousYear" class="btn btn-primary">Previous Month</a>
             }
         </div>
         <div class="col-md-3 text-center">
@@ -27,12 +27,11 @@
         <div class="col-md-3 text-center">
             @if (nextMonth <= DateTime.Now.Month && nextYear <= DateTime.Now.Year && nextYear >= DateTime.Now.Year)
             {
-                <a asp-action="Index" asp-route-month="@nextMonth" asp-route-year="@nextYear" class="btn btn-primary">Następny miesiąc</a>
+                <a asp-action="Index" asp-route-month="@nextMonth" asp-route-year="@nextYear" class="btn btn-primary">Next Month</a>
             }
         </div>
     </div>
 </div>
-
 
 <div class="grid-container">
     @foreach (var item in ViewBag.DaysOfWeekAndMonthDay)
@@ -50,7 +49,6 @@
     }
 </div>
 
-
 <style>
     .has-training {
         background-color: lightgreen;
@@ -58,7 +56,7 @@
 
     .grid-container {
         display: grid;
-        grid-template-columns: repeat(7, 1fr); /* 7 kolumn dla dni tygodnia */
+        grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
         grid-gap: 10px;
         margin-top: 20px;
     }

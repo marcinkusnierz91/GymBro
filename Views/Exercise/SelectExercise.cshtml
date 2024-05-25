@@ -1,6 +1,6 @@
 @model List<string>
 
-<h2>Ćwiczenia</h2>
+<h2>Exercises</h2>
 
 <div class="exercise-container">
     @foreach (var exercise in Model)
@@ -14,8 +14,8 @@
                 <input type="hidden" name="dayOfMonth" value="@ViewBag.DayOfMonth" />
                 <input type="hidden" name="month" value="@ViewBag.Month" />
                 <input type="hidden" name="year" value="@ViewBag.Year" />
-                <input type="hidden" name="musclePart" value="@ViewBag.musclePart" />
-                <button type="submit" class="btn btn-primary">Dodaj</button>
+                <input type="hidden" name="musclePart" value="@ViewBag.MusclePart" />
+                <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
     }
@@ -23,7 +23,7 @@
 
 <form asp-controller="Exercise" asp-action="SelectMusclePart" method="get">
     <input type="hidden" name="trainingId" value="@ViewBag.TrainingId" />
-    <button type="submit" class="btn btn-secondary mt-3">Powrót</button>
+    <button type="submit" class="btn btn-secondary mt-3">Back</button>
 </form>
 
 <style>
@@ -34,36 +34,36 @@
 }
 
 .exercise-tile {
-    background-color: #f8f9fa; /* Kolor tła dla każdego kafelka */
-    background-size: cover; /* Dopasowanie obrazka do rozmiaru kafelka */
-    background-position: center; /* Wyśrodkowanie obrazka w kafelku */
-    width: calc(33.333% - 10px); /* Stała szerokość kafelka */
-    height: 200px; /* Stała wysokość kafelka */
+    background-color: #f8f9fa; /* Background color for each tile */
+    background-size: cover; /* Fit the image to the size of the tile */
+    background-position: center; /* Center the image within the tile */
+    width: calc(33.333% - 10px); /* Fixed width of the tile */
+    height: 200px; /* Fixed height of the tile */
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Cień dla efektu wypukłości */
-    transition: transform 0.3s ease; /* Animacja przekształcenia */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for a raised effect */
+    transition: transform 0.3s ease; /* Transformation animation */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .exercise-tile:hover {
-    transform: translateY(-5px); /* Podniesienie kafelka po najechaniu myszką */
+    transform: translateY(-5px); /* Raise the tile when hovered */
 }
 
 .exercise-tile span {
     font-weight: bold;
     font-size: 18px;
     display: block;
-    background: rgba(255, 255, 255, 0.7); /* Półprzezroczyste tło dla tekstu */
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent background for the text */
     padding: 5px;
     border-radius: 5px;
-    text-align: center; /* Wyśrodkowanie tekstu */
+    text-align: center; /* Center the text */
 }
 
 .btn {
-    border-radius: 0; /* Usunięcie zaokrągleń przycisków */
+    border-radius: 0; /* Remove button rounding */
 }
 </style>
