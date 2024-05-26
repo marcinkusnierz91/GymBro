@@ -76,10 +76,10 @@ else
                                 <input type="hidden" name="exerciseId" value="@exercise.Id" />
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <label for="repetitions">Repetitions:</label>
-                                    <input type="text" id="repetitions" name="repetitions" class="form-control mb-2 w-25" />
+                                    <input type="number" id="repetitions" name="repetitions" class="form-control mb-2 w-25" min="0" step="1" />
                                 
                                     <label for="weight" class="mb-2">Weight:</label>
-                                    <input type="text" id="weight" name="weight" class="form-control mb-2 mr-2 w-25" />
+                                    <input type="number" id="weight" name="weight" class="form-control mb-2 mr-2 w-25" min="0" step="0.1" />
                                     
                                     <button type="submit" class="btn btn-primary mb-2 w-10">Add Series</button>
                                 </div>
@@ -106,11 +106,11 @@ else
                                                 </td>
                                                 <td>
                                                     <span class="display-data">@series.Repetitions</span>
-                                                    <input type="text" class="edit-data form-control" style="display: none;" value="@series.Repetitions" />
+                                                    <input type="number" class="edit-data form-control" style="display: none;" value="@series.Repetitions" min="0" step="1" />
                                                 </td>
                                                 <td>
                                                     <span class="display-data">@series.Weight</span>
-                                                    <input type="text" class="edit-data form-control" style="display: none;" value="@series.Weight" />
+                                                    <input type="number" class="edit-data form-control" style="display: none;" value="@series.Weight" min="0" step="0.1" />
                                                 </td>
                                                 <td class="d-flex">
                                                     <button class="edit-button btn btn-primary">Edit</button>

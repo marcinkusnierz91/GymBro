@@ -52,15 +52,15 @@ namespace GymBro.Controllers
         }
 
         // GET: Charts/Filter
-        public async Task<IActionResult> Filter(int year, string exercise, string musclePart)
+        public async Task<IActionResult> Filter(int? year, string exercise, string musclePart)
         {
             var trainingsQuery = _context.Trainings
                 .Include(t => t.Exercises)
                 .AsQueryable();
 
-            if (year > 0)
+            if (year.HasValue)
             {
-                trainingsQuery = trainingsQuery.Where(t => t.TrainingDate.Year == year);
+                trainingsQuery = trainingsQuery.Where(t => t.TrainingDate.Year == year.Value);
             }
 
             if (!string.IsNullOrEmpty(exercise))
@@ -75,8 +75,8 @@ namespace GymBro.Controllers
 
             var trainings = await trainingsQuery.ToListAsync();
 
-            var groupedByMonth = trainings
-                .GroupBy(t => t.TrainingDate.Month)
+            var groupedByYear = trainings
+                .GroupBy(t => t.TrainingDate.Year)
                 .ToList();
 
             ViewBag.SelectedYear = year;
@@ -101,7 +101,7 @@ namespace GymBro.Controllers
                 .OrderBy(e => e)
                 .ToListAsync();
 
-            return View("Index", groupedByMonth);
+            return View("Index", groupedByYear);
         }
     }
 }

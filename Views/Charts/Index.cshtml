@@ -67,12 +67,13 @@
     var months = Enumerable.Range(1, 12).ToList();
     var counts = months.Select(month =>
     {
-        return Model.SelectMany(group => group)
-            .Count(t => t.TrainingDate.Month == month && t.TrainingDate.Year == ViewBag.SelectedYear && 
-                        (string.IsNullOrEmpty(ViewBag.SelectedExercise) || 
-                        t.Exercises.Any(e => e.ExerciseName == ViewBag.SelectedExercise)) &&
-                        (string.IsNullOrEmpty(ViewBag.SelectedMusclePart) ||
-                        t.Exercises.Any(e => e.MusclePart == ViewBag.SelectedMusclePart)));
+        return Model
+            .Where(g => g.Key == ViewBag.SelectedYear)
+            .SelectMany(group => group) // Flatten the grouped trainings
+            .SelectMany(training => training.Exercises) // Flatten the exercises
+            .Count(exercise => exercise.ExerciseDate.Month == month &&
+                               (string.IsNullOrEmpty(ViewBag.SelectedExercise) || exercise.ExerciseName == ViewBag.SelectedExercise) &&
+                               (string.IsNullOrEmpty(ViewBag.SelectedMusclePart) || exercise.MusclePart == ViewBag.SelectedMusclePart));
     }).ToList();
 
     <h2>Year: @ViewBag.SelectedYear</h2>
@@ -84,7 +85,7 @@
             data: {
                 labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(months)),
                 datasets: [{
-                    label: 'Number of trainings',
+                    label: 'Number of exercises',
                     data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(counts)),
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
